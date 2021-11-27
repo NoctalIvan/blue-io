@@ -17,12 +17,5 @@ module.exports = {
     cps: {
         a: {id: 'a', position: {x: 500, y: 312}}
     },
-    trashes: {
-        '1.123': {
-            id: '1.123',
-            position: {
-                x: 100, y: 100
-            }
-        }
-    }
+    trashes: {}
 }

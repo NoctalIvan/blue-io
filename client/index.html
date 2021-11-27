@@ -5,17 +5,82 @@
   <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+  <style>
+    #canvas-cnt{
+      padding-top: 12px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    #canvas-cnt canvas {
+      box-shadow: -1px 1px 5px 9px #60b7ca;
+      width: 1000px;
+      margin: 0 auto;
+    }
+
+    #app {
+      min-height: 570px;
+      max-height: 570px;
+      overflow-y: hidden;
+    }
+
+    .vue-cnt {
+      max-width: 1000px;
+    }
+
+    .img-cnt > img {
+      width: 33%;
+    }
+
+  </style>
 </head>
 <body>
-  <div id="canvas-cnt"></div>
   <div id="app">
     <v-app>
       <v-main>
-        <v-container>
-            Hello world
+        <v-container class="vue-cnt px-0">
+            <h1>Blue.IO</h1>
+            <v-card>
+              <v-card-title>
+                Blue.IO
+              </v-card-title>
+
+              <v-card-text>
+                <v-label>
+                  Choose a username
+                </v-label>
+                <v-text-field
+                  label="userName"
+                ></v-text-field>
+
+                <v-label>
+                  Choose a boat
+                </v-label>     
+                
+                <div class="img-cnt">
+                  <img class="pr-4 elevation2" src="assets/b6.jpg" @click="() => onValidate('cargo')"/>
+                  <img class="px-2 elevation2" src="assets/b4.jpg" @click="() => onValidate('fregate')"/>
+                  <img class="pl-4 elevation2" src="assets/b5.jpg" @click="() => onValidate('police')"/>
+                </div>
+                <v-layout>
+                  <v-flex xs4>
+                  </v-flex>
+                  <v-flex xs4>
+                  </v-flex>
+                  <v-flex xs4>
+                  </v-flex>
+                </v-layout>
+              </v-card-text>
+            </v-card>
         </v-container>
       </v-main>
     </v-app>
+  </div>
+
+  <div id="canvas-cnt">
+    <div id="canvas-cnt-close">
+
+    </div>  
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>

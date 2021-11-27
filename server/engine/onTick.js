@@ -1,5 +1,6 @@
 // computes one tick of game loop depending on DeltaTime
 const { squareCollision, roundCollision } = require('./collisionHelper')
+const uuid = require('uuid').v4
 const CONSTANTS = require('./constants')
 
 module.exports = (world, deltaTime) => {
@@ -61,6 +62,17 @@ module.exports = (world, deltaTime) => {
         }
     }
 
+    // spawn trash
+    while(Object.values(newWorld.trashes).length < 3) {
+        const id = uuid()
+        newWorld.trashes[id] = {
+            id,
+            position: {
+                x: Math.random() * 800 + 100,
+                y: Math.random() * 525 + 100,
+            }
+        }
+    }
 
     // tick
     newWorld.lastRender = +new Date()

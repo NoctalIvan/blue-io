@@ -1,31 +1,39 @@
-// Create the sprite and add it to the stage
-setTimeout(() => {
-    // create boat now
+const speedTypes = {
+    cargo: 2,
+    fregate: 5,
+    police: 4
+}
+
+const onBoatSelection = (type) => {
     const newBoat = {
         position: {x: 100, y: 100},
         direction: {x: 100, y: 100},
+        type,
         id: UNIQUE_ID,
         trashes: [],
-        speed: 20, // todo : change
+        speed: speedTypes[type]
     }
-    // createBoat(newBoat)
+
     socket_createBoat(newBoat)
-}, 2000)
+}
 
 app.renderer.view.addEventListener('click', function(e) {
+    const myBoat = window.world.boats[UNIQUE_ID]
+    if(!myBoat) {
+        return
+    }
+    
     // place target
     if(target) {
-        moveTarget(e)
+        moveTarget({x: e.layerX, y: e.layerY})
     } else {
-        createTarget(e)
+        createTarget({x: e.layerX, y: e.layerY})
     }
 
-    socket_sendNewDirection({id: UNIQUE_ID, x: e.x, y: e.y})
+    socket_sendNewDirection({id: UNIQUE_ID, x: e.layerX, y: e.layerY})
 })
 
 // render loop
-setTimeout(() => {
-    app.ticker.add(() => {
-        renderWorld()
-    });
-}, 2000)
+app.ticker.add(() => {
+    renderWorld()
+})

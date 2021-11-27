@@ -4,6 +4,7 @@ const renderWorld = () => {
     }
 
     const myBoat = window.world.boats[UNIQUE_ID]
+    const rockingPixel = new Date().getSeconds() % 2 
 
     // place cps
     if(!cps.a) {
@@ -22,10 +23,10 @@ const renderWorld = () => {
         } else {
             if(!boat.momentum) {
                 renderBoat.x = boat.position.x
-                renderBoat.y = boat.position.y
+                renderBoat.y = boat.position.y + rockingPixel
             } else {
                 renderBoat.x = boat.position.x + boat.momentum.x * (deltaTime / 200)
-                renderBoat.y = boat.position.y + boat.momentum.y * (deltaTime / 200)
+                renderBoat.y = boat.position.y + boat.momentum.y * (deltaTime / 200) + rockingPixel
             }
         }
     }
@@ -37,6 +38,8 @@ const renderWorld = () => {
         
         if(!renderTrash) {
             createTrash(trash)
+        } else {
+            renderTrash.y = trash.y + rockingPixel
         }
     }
 

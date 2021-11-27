@@ -2,7 +2,7 @@ const boats = {}
 
 const createBoat = (boat) => {
     const sprite = PIXI.Sprite.from(textures.cargo)
-    sprite.width = 30
+    sprite.width = 50
     sprite.height = 34
     sprite.x = boat.position.x
     sprite.y = boat.position.y
