@@ -14,6 +14,10 @@ app.ws('/', function(ws, req) {
         }
 
         if(msg.type == 'new_direction') {
+            if(!engine.getWorld().boats[msg.data.id]) {
+                return
+            }
+            
             engine.getWorld().boats[msg.data.id].direction = {
                 x: msg.data.x,
                 y: msg.data.y
