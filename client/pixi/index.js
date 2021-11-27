@@ -12,7 +12,9 @@ document.getElementById('canvas-cnt').appendChild(app.view)
 let target = null
 
 const boats = {}
-const trashs = {}
+const trashes = {}
+const cps = {}
+
 const createBoat = (boat) => {
     const sprite = PIXI.Sprite.from(textures.cargo)
     sprite.width = 30
@@ -25,6 +27,11 @@ const createBoat = (boat) => {
     boats[boat.id] = sprite
 }
 
+const deleteBoat = (boatId) => {
+    app.stage.removeChild(boats[boatId])
+    delete boats[boatId]
+}
+
 const createTrash = (trash) => {
     const sprite = PIXI.Sprite.from(textures.trash)
     sprite.width = 20
@@ -34,12 +41,24 @@ const createTrash = (trash) => {
     sprite.anchor.set(0.5)
     app.stage.addChild(sprite)
 
-    trashs[trash.id] = sprite
+    trashes[trash.id] = sprite
 }
 
 const deleteTrash = (trashId) => {
-    app.stage.removeChild(trashs[trashId])
-    delete trashs[trashId]
+    app.stage.removeChild(trashes[trashId])
+    delete trashes[trashId]
+}
+
+const createCp = (cp) => {
+    const sprite = PIXI.Sprite.from(textures.cp)
+    sprite.width = 20
+    sprite.height = 30
+    sprite.x = cp.position.x
+    sprite.y = cp.position.y
+    sprite.anchor.set(0.5)
+    app.stage.addChild(sprite)
+
+    cps[cp.id] = sprite
 }
 
 setTimeout(() => {
@@ -48,7 +67,8 @@ setTimeout(() => {
         position: {x: 100, y: 100},
         direction: {x: 100, y: 100},
         id: UNIQUE_ID,
-        speed: 2,
+        trashes: [],
+        speed: 20, // todo : change
     }
     // createBoat(newBoat)
     socket_createBoat(newBoat)
@@ -77,6 +97,11 @@ const renderWorld = () => {
         return
     }
 
+    // place cps
+    if(!cps.a) {
+        createCp(window.world.cps.a)
+    }
+
     // place boats
     const deltaTime = +new Date() - window.world.lastRender
     for(let boatId in window.world.boats) {
@@ -98,18 +123,18 @@ const renderWorld = () => {
     }
 
     // place trash
-    for(let trashId in window.world.trash) {
-        const trash = window.world.trash[trashId]
-        const renderTrash = trashs[trashId]
-
+    for(let trashId in window.world.trashes) {
+        const trash = window.world.trashes[trashId]
+        const renderTrash = trashes[trashId]
+        
         if(!renderTrash) {
             createTrash(trash)
         }
     }
 
     // rm trash
-    for(let trashId in trashs) {
-        if(!window.world.trash[trashId]) {
+    for(let trashId in trashes) {
+        if(!window.world.trashes[trashId]) {
             deleteTrash(trashId)
         }
     }

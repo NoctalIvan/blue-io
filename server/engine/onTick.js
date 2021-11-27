@@ -29,27 +29,34 @@ module.exports = (world, deltaTime) => {
             boat.momentum = {x: distanceFraction * dx, y: distanceFraction * dy}
         }
 
-        // todo : manage following cargo
-        
+        // todo : manage cargo
     }
 
     // trash collection
     for(let boat of Object.values(newWorld.boats)) {
-        for(let trash in Object.values(newWorld.trashs)) {
-            console.log(trash)
+        for(let trash of Object.values(newWorld.trashes)) {
             if(roundCollision(boat.position, trash.position, CONSTANTS.boatCollectionRadius)) {
-                boat.trash.push(trash)
-                delete world.trash[trash]
+                if(!boat.trashes) {
+                    boat.trashes = []
+                }
+
+                boat.trashes.push(trash)
+                delete newWorld.trashes[trash.id]
             }
         }
     }
 
     // trash deposit
     for(let boat of Object.values(newWorld.boats)) {
-        for(let cp of newWorld.cps) {
+        if(!boat.trashes || Object.keys(boat.trashes).length == 0) {
+            continue
+        }
+
+        for(let cp of Object.values(newWorld.cps)) {
             if(roundCollision(boat.position, cp.position, CONSTANTS.boatDepositRadius)) {
-                boat.trash = []
-                // todo : count score
+                console.log(boat.trashes)
+                console.log('TODO / SCORE')
+                boat.trashes = {}
             }
         }
     }

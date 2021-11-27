@@ -38,7 +38,7 @@ app.ws('/', function(ws, req) {
                     x: newX,
                     y: newY
                 },
-                speed: 2
+                speed: msg.data.speed
             }
         }
     })

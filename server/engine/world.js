@@ -14,11 +14,12 @@ module.exports = {
     //         speed: 5
     //     }
     // },
-    cps: [
-        {position: {x: 500, y: 500}},
-    ],
-    trashs: {
-        '123': {
+    cps: {
+        a: {id: 'a', position: {x: 500, y: 312}}
+    },
+    trashes: {
+        '1.123': {
+            id: '1.123',
             position: {
                 x: 100, y: 100
             }
