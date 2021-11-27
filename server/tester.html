@@ -1,0 +1,21 @@
+<body>
+    <button onClick="send1">call 1</button>
+    <button onClick="send2">call 2</button>
+</body>
+
+<script>
+    var socket1 = new WebSocket("ws://localhost:3003");
+    var socket2 = new WebSocket("ws://localhost:3003");
+
+    function send1() {
+        socket1.send(JSON.stringify({
+            coucou: 'world'
+        }))
+    }
+
+    function send2() {
+        socket2.send(JSON.stringify({
+            coucou: 'world2'
+        }))
+    }
+</script>
