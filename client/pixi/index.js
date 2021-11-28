@@ -4,10 +4,11 @@ const speedTypes = {
     police: 4
 }
 
-const onBoatSelection = (type) => {
+const onBoatSelection = (type, name) => {
     const newBoat = {
         position: {x: 100, y: 100},
         direction: {x: 100, y: 100},
+        name,
         type,
         id: UNIQUE_ID,
         trashes: [],

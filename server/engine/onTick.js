@@ -29,8 +29,6 @@ module.exports = (world, deltaTime) => {
             boat.position.y += distanceFraction * dy
             boat.momentum = {x: distanceFraction * dx, y: distanceFraction * dy}
         }
-
-        // todo : manage cargo
     }
 
     // trash collection

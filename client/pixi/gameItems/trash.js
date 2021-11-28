@@ -11,6 +11,9 @@ const createTrash = (trash) => {
 }
 
 const deleteTrash = (trashId) => {
-    app.stage.removeChild(trashes[trashId])
+    const trash = trashes[trashId]
+    displayMessage('+' + (trash.value || 1), trash.position.x, trash.position.y - 30)
+
+    app.stage.removeChild(trash)
     delete trashes[trashId]
 }

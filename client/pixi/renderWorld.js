@@ -43,4 +43,8 @@ const renderWorld = () => {
             deleteTrash(trashId)
         }
     }
+
+    // update messages & loaders
+    updateMessages()
+    updateLoaders()
 }
