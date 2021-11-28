@@ -1,12 +1,11 @@
 const boats = {}
 const circles = {}
 const names = {}
+const messageIds = {}
 
 const createBoat = (boat) => {
     console.log(boat)
     const sprite = PIXI.Sprite.from(textures[boat.type])
-    sprite.width = 50
-    sprite.height = 34
     sprite.x = boat.position.x
     sprite.y = boat.position.y
     sprite.anchor.set(0.5)
@@ -27,7 +26,7 @@ const createBoat = (boat) => {
     const name = new PIXI.Text(boat.name || 'anony-mousse', {
         fontFamily : 'monospace',
         fontSize: 12,
-        fill : 0xffffff, 
+        fill : boat.type == 'cargo' ? 0xffffff : boat.type == 'fregate' ? 0xff0000 : 0x0000ff, 
         align : 'center'
     })
     name.anchor.set(0.5)
@@ -60,6 +59,12 @@ const moveBoat = (boat, renderBoat, deltaTime, rockingPixel = 0) => {
     } else {
         renderBoat.x = boat.position.x + boat.momentum.x * (deltaTime / 200) * 5
         renderBoat.y = boat.position.y + boat.momentum.y * (deltaTime / 200) * 5 + rockingPixel
+
+        if(boat.momentum.x > 0 && renderBoat.scale.x > 0) {
+            renderBoat.scale.x *= -1
+        } else if(boat.momentum.x < 0 && renderBoat.scale.x < 0) {
+            renderBoat.scale.x *= -1
+        }
     }
 
     const circle = circles[boat.id]
@@ -72,5 +77,23 @@ const moveBoat = (boat, renderBoat, deltaTime, rockingPixel = 0) => {
     if(name) {
         name.x = renderBoat.x
         name.y = renderBoat.y - 30
+    }
+
+    if(boat.steal && !messageIds[boat.steal.id]) {
+        messageIds[boat.steal.id] = true
+        displayLoader(boat.position.x, boat.position.y, 0xff0000)
+    }
+
+    if(boat.lastSuccess && !messageIds[boat.lastSuccess.id]) {
+        messageIds[boat.lastSuccess.id] = true
+        displayMessage(`secured ${boat.lastSuccess.score} trash !`, boat.position.x, boat.position.y - 20)
+    }
+
+    // trash updates
+    names[boat.id].text = `${boat.name || 'anony-mousse'} (${boat.trashes || 0})`
+    if(boat.type == 'fregate') {
+        renderBoat.texture = textures['fregate' + (boat.trashes || '')]
+    } else if (boat.type == 'cargo') {
+        renderBoat.texture = textures['cargo' + (boat.trashes || '')]
     }
 }

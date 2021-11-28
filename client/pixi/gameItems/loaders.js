@@ -16,12 +16,12 @@ const displayLoader = (x, y, color = 0x00ff00) => {
 const updateLoaders = () => {
     loaders.forEach((loader, i) => {
         const dt = new Date() - loader.since
-        if(dt > 5000) {
+        if(dt > 2000) {
             app.stage.removeChild(loader.semicircle)
             loaders = [...loaders.slice(0, i), ...loaders.slice(i+1, loaders.length)]
             return
         }
         
-        loader.semicircle.arc(0, 0, 10, 0, (dt/5000) * 2 * Math.PI)
+        loader.semicircle.arc(0, 0, 10, 0, (dt/2000) * 2 * Math.PI)
     })
 }

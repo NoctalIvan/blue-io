@@ -1,7 +1,7 @@
 const speedTypes = {
-    cargo: 2,
-    fregate: 5,
-    police: 4
+    cargo: 20, // TODO ; CHANGE
+    fregate: 50,
+    police: 40
 }
 
 const onBoatSelection = (type, name) => {
@@ -11,7 +11,7 @@ const onBoatSelection = (type, name) => {
         name,
         type,
         id: UNIQUE_ID,
-        trashes: [],
+        trashes: 0,
         speed: speedTypes[type]
     }
 

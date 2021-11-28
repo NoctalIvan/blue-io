@@ -1,12 +1,16 @@
 const paths = {
-    cargo: '/assets/b3.jpg',
-    fregate: '/assets/b1.jpg',
-    police: '/assets/b2.jpg',
+    cargo: '/assets/spb3a.png',
+    cargo1: '/assets/spb3b.png',
+    cargo2: '/assets/spb3c.png',
+    cargo3: '/assets/spb3d.png',
+    fregate: '/assets/fregate.png',
+    fregate1: '/assets/fregate1.png',
+    police: '/assets/police.png',
     target: '/assets/target.png',
     trash1: '/assets/trash1.png',
     trash2: '/assets/trash2.png',
     trash3: '/assets/trash3.png',
-    cp: '/assets/cargo.png',
+    cp: '/assets/fregate.png',
     background: '/assets/back1.png'
 }
 

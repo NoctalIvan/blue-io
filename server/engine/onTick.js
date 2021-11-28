@@ -33,13 +33,13 @@ module.exports = (world, deltaTime) => {
 
     // trash collection
     for(let boat of Object.values(newWorld.boats)) {
+        if(boat.type !== 'cargo' || boat.trashes >= 3) {
+            continue
+        }
+
         for(let trash of Object.values(newWorld.trashes)) {
             if(roundCollision(boat.position, trash.position, CONSTANTS.boatCollectionRadius)) {
-                if(!boat.trashes) {
-                    boat.trashes = []
-                }
-
-                boat.trashes.push(trash)
+                boat.trashes = (boat.trashes || 0) + 1
                 delete newWorld.trashes[trash.id]
             }
         }
@@ -47,16 +47,63 @@ module.exports = (world, deltaTime) => {
 
     // trash deposit
     for(let boat of Object.values(newWorld.boats)) {
-        if(!boat.trashes || Object.keys(boat.trashes).length == 0) {
+        if(!boat.trashes) {
             continue
         }
 
         for(let cp of Object.values(newWorld.cps)) {
             if(roundCollision(boat.position, cp.position, CONSTANTS.boatDepositRadius)) {
-                console.log(boat.trashes)
-                console.log('TODO / SCORE')
-                boat.trashes = {}
+                console.log('SCORE')
+                boat.lastSuccess = {
+                    id: uuid(),
+                    score: boat.trashes    
+                }
+                boat.trashes = 0
             }
+        }
+    }
+
+    // trash stealing
+    for(let fregate of Object.values(newWorld.boats)) {
+        if(fregate.type != 'fregate' || fregate.trashes > 0) {
+            continue
+        }
+
+        for(let cargo of Object.values(newWorld.boats)) {
+            if(cargo.type != 'cargo' || cargo.steal || cargo.trashes <= 0) {
+                continue
+            }
+
+            if(Object.values(newWorld.boats).find(police => 
+                police.type == 'police' &&
+                roundCollision(police.position, cargo.position, 70)
+            )) {
+                continue
+            }
+
+            if(roundCollision(fregate.position, cargo.position, CONSTANTS.boatCollectionRadius * 2)) {
+                console.log('STEAL')
+                cargo.steal = {
+                    id: uuid(),
+                    since: +new Date(),
+                    by: fregate.id
+                }
+            }
+        }
+    }
+
+    for(let cargo of Object.values(newWorld.boats)) {
+        if(!cargo.steal) {
+            continue
+        }
+
+        const fregate = newWorld.boats[cargo.steal.by]
+        if(+new Date() - cargo.steal.since > 2000) {
+            console.log(fregate)
+            cargo.trashes -= 1
+            fregate.trashes = (fregate.trashes || 0) + 1
+            cargo.steal = null
+            console.log('STEAL END')
         }
     }
 
