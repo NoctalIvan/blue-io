@@ -19,8 +19,8 @@
     }
 
     #app {
-      min-height: 570px;
-      max-height: 570px;
+      min-height: 980px;
+      max-height: 980px;
       overflow-y: hidden;
     }
 
@@ -39,40 +39,31 @@
     <v-app>
       <v-main>
         <v-container class="vue-cnt px-0">
-            <h1>Blue.IO</h1>
-            <v-card>
-              <v-card-title>
-                Blue.IO
-              </v-card-title>
+          
+          <img src="assets/cover.jpg" width="100%"></img>
+          
+          <v-text-field
+            label="userName"
+            v-model="userName"
+          ></v-text-field>
 
-              <v-card-text>
-                <v-label>
-                  Choose a username
-                </v-label>
-                <v-text-field
-                  label="userName"
-                  v-model="userName"
-                ></v-text-field>
-
-                <v-label>
-                  Choose a boat
-                </v-label>     
-                
-                <div class="img-cnt">
-                  <img class="pr-4 elevation2" src="assets/b6.jpg" @click="() => onValidate('cargo')"/>
-                  <img class="px-2 elevation2" src="assets/b4.jpg" @click="() => onValidate('fregate')"/>
-                  <img class="pl-4 elevation2" src="assets/b5.jpg" @click="() => onValidate('police')"/>
-                </div>
-                <v-layout>
-                  <v-flex xs4>
-                  </v-flex>
-                  <v-flex xs4>
-                  </v-flex>
-                  <v-flex xs4>
-                  </v-flex>
-                </v-layout>
-              </v-card-text>
-            </v-card>
+          <v-label>
+            Choose a boat
+          </v-label>     
+          
+          <div class="img-cnt">
+            <img class="pr-4 elevation2" src="assets/b6.jpg" @click="() => onValidate('cargo')"/>
+            <img class="px-2 elevation2" src="assets/b4.jpg" @click="() => onValidate('fregate')"/>
+            <img class="pl-4 elevation2" src="assets/b5.jpg" @click="() => onValidate('police')"/>
+          </div>
+          <v-layout>
+            <v-flex xs4>
+            </v-flex>
+            <v-flex xs4>
+            </v-flex>
+            <v-flex xs4>
+            </v-flex>
+          </v-layout>
         </v-container>
       </v-main>
     </v-app>

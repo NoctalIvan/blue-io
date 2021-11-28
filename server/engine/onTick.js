@@ -108,7 +108,7 @@ module.exports = (world, deltaTime) => {
     }
 
     // spawn trash
-    while(Object.values(newWorld.trashes).length < 3) {
+    while(Object.values(newWorld.trashes).length < 7) {
         const id = uuid()
         const type = Math.floor(Math.random() * 3) + 1
         newWorld.trashes[id] = {

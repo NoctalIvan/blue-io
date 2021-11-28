@@ -1,8 +1,14 @@
 const speedTypes = {
-    cargo: 20, // TODO ; CHANGE
-    fregate: 50,
-    police: 40
+    cargo: 2, // TODO ; CHANGE
+    fregate: 5,
+    police: 4
 }
+
+// const speedTypes = {
+//     cargo: 20, // TODO ; CHANGE
+//     fregate: 50,
+//     police: 40
+// }
 
 const onBoatSelection = (type, name) => {
     const newBoat = {

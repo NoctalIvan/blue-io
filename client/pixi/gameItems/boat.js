@@ -9,6 +9,8 @@ const createBoat = (boat) => {
     sprite.x = boat.position.x
     sprite.y = boat.position.y
     sprite.anchor.set(0.5)
+    // sprite.scale.x *= 2
+    // sprite.scale.y *= 2
     app.stage.addChild(sprite)
 
     boats[boat.id] = sprite

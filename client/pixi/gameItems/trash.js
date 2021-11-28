@@ -1,9 +1,12 @@
 const trashes = {}
 
 const createTrash = (trash) => {
-    const sprite = PIXI.Sprite.from(textures['trash' + trash.type])
+    const sprite = PIXI.Sprite.from(textures.bottle)
+    sprite.width = 30
+    sprite.height = 20
     sprite.x = trash.position.x
     sprite.y = trash.position.y
+    sprite.rotation = Math.random() * 360
     sprite.anchor.set(0.5)
     app.stage.addChild(sprite)
 

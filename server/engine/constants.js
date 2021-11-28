@@ -1,5 +1,5 @@
 module.exports = {
-    boatCollectionRadius: 10,
-    boatDepositRadius: 10,
+    boatCollectionRadius: 20,
+    boatDepositRadius: 20,
     boatBaseSpeed: 0.01
 }
